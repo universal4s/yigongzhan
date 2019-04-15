@@ -1,6 +1,6 @@
 # tailglow
 
-> A Vue.js project
+> 萤火虫义工站管理系统
 
 ## Build Setup
 
