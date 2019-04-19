@@ -120,17 +120,6 @@ export default {
             let params = {
                 Uid: this.$store.state.UserData.Uid
             };
-            // this.$axios
-            //     .get("/api/v1.1/allVolunteers", JSON.stringify(params))
-            //     .then(Response => {
-            //         if (Response.data.exe_result) {
-            //             this.StuList = Response.data.all_volunteers;
-            //         } else
-            //             console.log("error_code:" + Response.data.error_code);
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //     });
             this.$axios
                 .get(
                     "http://www.overlove.xin/volunteer/public/getstudentinformation"

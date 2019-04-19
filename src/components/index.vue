@@ -1,24 +1,12 @@
 <template>
     <div>
-        <!-- <div class="Site"> -->
-            <!-- 此处为顶部导航栏 -->
-            <!-- 此处为主要内容区 -->
-            <!-- 此处是底部版权区 -->
-        <!-- </div> -->
         <el-container>
             <el-header>
-                <!-- Header content -->
                 <nav-bar></nav-bar>
             </el-header>
             <el-main>
-                <!-- Main content -->
                 <main-page class="Site-content"></main-page>
             </el-main>
-
-            <el-footer>
-                <!-- Footer content -->
-                <footer-page></footer-page>
-            </el-footer>
         </el-container>
     </div>
 </template>

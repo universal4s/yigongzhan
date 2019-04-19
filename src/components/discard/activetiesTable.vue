@@ -63,11 +63,11 @@
     </div>
 </template>
 <script>
-import FileSaver from "file-saver";
-import XLSX from "xlsx";
-import bus from "./bus.js";
-import { sha512, saltHashPassword } from "../js/encrypt.js";
-import Noti from "./Notification.vue";
+// import FileSaver from "file-saver";
+// import XLSX from "xlsx";
+// import bus from "./bus.js";
+// import { sha512, saltHashPassword } from "../js/encrypt.js";
+// import Noti from "./Notification.vue";
 export default {
     name: "activitiesTable",
     data() {
@@ -189,7 +189,7 @@ export default {
         });
     },
     components: {
-        Noti
+        // Noti
     }
 };
 </script>

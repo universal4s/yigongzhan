@@ -19,39 +19,9 @@
                 <router-link to="/admin" class="nav-link a-style a-hover">用户管理</router-link>
             </el-menu-item>
 
-            <!-- <el-menu-item index="2">
-
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
-                <router-link to="/admin" class="nav-link a-style a-hover">用户管理</router-link>
-
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <i class="el-icon-document"></i>
-                <span slot="title">导航三</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
-                <router-link to="/active" class="nav-link a-style a-hover">活动列表</router-link>
-
-            </el-menu-item>-->
         </el-menu>
     </div>
 </template>
-<style scoped>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-}
-.a-style {
-    text-decoration: none;
-    color: #343a40;
-}
-.a-hover:hover {
-    color: black;
-}
-</style>
 
 <script>
 export default {
@@ -68,3 +38,16 @@ export default {
     }
 };
 </script>
+<style scoped>
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+}
+.a-style {
+    text-decoration: none;
+    color: #343a40;
+}
+.a-hover:hover {
+    color: black;
+}
+</style>
