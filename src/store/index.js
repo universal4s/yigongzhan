@@ -4,14 +4,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     UserData: {
-      Uid: '15751512041',
-      UserName: '',
-      DepartMent: '',
-      isSuper: false,
-      permission: 'user'
+      Uid: '162210702234',
+      role: null,
     },
-    isLogin: false,
-    auto: true,
+    auto: false,
     AllMyActiveList: [],
     publisherList: []
   },

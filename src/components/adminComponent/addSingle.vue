@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <el-form :model="form" label-width="80px" :rules="rules" ref="addUserForm">
+    <div class="container">
+        <div class="main">
+            <el-form :model="form" label-width="80px" :rules="rules" ref="addUserForm">
             <el-form-item label="姓名" prop="name" size="medium ">
                 <el-col :span="6">
                     <el-input v-model="form.name">
@@ -13,12 +14,12 @@
                     <el-input v-model="form.studentid"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="密码" prop="password">
+            <el-form-item label="密码" prop="password" size="small">
                 <el-col :span="6">
                     <el-input v-model="form.password"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="性别" prop="sex">
+            <el-form-item label="性别" prop="sex" size="small">
                 <el-select v-model="form.sex" placeholder="请选择性别">
                     <el-option
                         v-for="item in genderOption"
@@ -28,25 +29,26 @@
                     ></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="入学年份" prop="inyear">
+            <el-form-item label="入学年份" prop="inyear" size="small">
                 <el-col :span="6">
                     <el-input v-model="form.inyear"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item label="专业" prop="major">
+            <el-form-item label="专业" prop="major" size="small">
                 <el-col :span="6">
                     <el-input v-model="form.major"></el-input>
                 </el-col>
-            </el-form-item>
-            <el-form-item label="手机号码" prop="phone">
+            </el-form-item >
+            <el-form-item label="手机号码" prop="phone" size="small">
                 <el-col :span="6">
                     <el-input v-model="form.phone"></el-input>
                 </el-col>
             </el-form-item>
-            <el-form-item>
+            <el-form-item size="small">
                 <el-button type="primary" @click="submitForm('addUserForm')">立即添加</el-button>
             </el-form-item>
         </el-form>
+        </div>
     </div>
 </template>
 <script>
@@ -139,7 +141,7 @@ export default {
             // fd.append("vol_reg_date", "");
 
             this.$axios
-                .post("http://www.overlove.xin/volunteer/admin/addstudentuser", fd)
+                .post("/volunteer/admin/addstudentuser", fd)
                 .then(res => {
                     if (res.data.code == 200) {
                         this.$notify.success({
@@ -163,4 +165,11 @@ export default {
 </script>
 
 <style scoped>
+.container{
+    padding-left: 200px;
+
+}
+.main{
+    padding-top: 20px;
+}
 </style>

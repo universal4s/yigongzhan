@@ -16,7 +16,8 @@ Vue.config.productionTip = false
 Vue.use(Element)
 Vue.use(bootstrap)
 var ax = axios.create({
-  baseURL: 'http://www.overlove.xin'
+  baseURL: 'http://www.biggsai.com',
+  withCredentials: true
 })
 Vue.prototype.$axios = ax
 /* eslint-disable no-new */

@@ -15,7 +15,7 @@
                     <div>
                         <router-link
                             :to="{name:'publisherDetails',params:{id:scope.row.publisherId}}"
-                        ></router-link>
+                        >详情</router-link>
                     </div>
                 </template>
             </el-table-column>

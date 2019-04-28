@@ -46,12 +46,13 @@
 </template>
 
 <script>
+import { resolve } from "url";
 export default {
   data() {
     return {
       UserInfo: {
-        username: "22",
-        password: "66666"
+        username: "162210702234",
+        password: "bigsai"
       }
     };
   },
@@ -66,7 +67,11 @@ export default {
         .then(res => {
           console.log(res.data);
           if (res.data.code == 200) {
-            _this.$router.replace({ path: "actives" });
+            document.cookie = "";
+            document.cookie = "JSESSIONID=" + res.data.data.JSESSIONID;
+            localStorage.setItem("role", res.data.data.role);
+            _this.get_dynamic_route(localStorage.getItem("role"));
+            _this.$router.replace({ path: "/main" });
           }
         })
         .catch(err => {
@@ -74,10 +79,49 @@ export default {
         });
     },
     get_dynamic_route(user_type) {
-      var router_list = [];
-      if (user_type == "publisher") {
+      var router_list = null;
+      if (user_type == "student") {
+        router_list = [
+          {
+            path: "/",
+            redirect: "/index"
+          },
+          {
+            path: "/index",
+            component: resolve => require(["@/components/index.vue"], resolve),
+            children: [
+              {
+                path: "/",
+                redirect: "active"
+              },
+              {
+                path: "active",
+                component: resolve =>
+                  require(["@/components/publisher/index.vue"], resolve)
+              },
+              {
+                path: "all",
+                component: resolve =>
+                  require(["@/components/Admin.vue"], resolve)
+              }
+            ]
+          }
+        ];
       } else if (user_type == "admin") {
       }
+      // this.$router.addRoutes(router_list);
+    },
+    getCookie(name) {
+      var arr,
+        reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
+    }
+  },
+  created() {
+    const _this = this;
+    if (_this.$store.state.auto && _this.getCookie("JSESSIONID") != null) {
+      _this.get_dynamic_route(localStorage.getItem("role"));
+      _this.$router.replace({ path: "/main" });
     }
   }
 };

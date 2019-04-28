@@ -1,35 +1,63 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Active from '@/components/activetiesTable'
-import Login from '@/components/Login/login'
 Vue.use(Router)
 var router = new Router({
   routes: [{
       path: '/',
-      redirect: '/login' //默认指向活动列表
+      redirect: '/login'
 
     },
     {
       path: '/login',
-      component: Login
-      // component: resolve => require(['@/components/Login/login.vue'], resolve)
+      component: resolve => require(['@/components/Login/login.vue'], resolve)
 
     },
+    // {
+    //   path: "/",
+    //   redirect: "/index"
+    // },
     {
-      path: '/actives',
-      component: resolve => require(['@/components/index.vue'], resolve),
+      path: "/main",
+      component: resolve => require(["@/components/index.vue"], resolve),
       children: [{
-        path: 'my-active',
-        component: resolve => require(['@/components/Active/MyActive.vue'], resolve)
-
-      }, ]
-
+          path: "/",
+          redirect: "active"
+        }, {
+          path: "active",
+          component: resolve => require(["@/components/publisher/index.vue"], resolve),
+          children: [{
+              path: "/",
+              redirect: "all-active"
+            },
+            {
+              path: "all-active",
+              component: resolve => require(["@/components/Active/AllMyActive.vue"], resolve)
+            },
+            {
+              path: 'add-active',
+              component: resolve => require(["@/components/Active/createActive.vue"], resolve)
+            },
+            {
+              path: 'details',
+              name: 'active-details',
+              component: resolve => require(['@/components/Active/MyActiveDetails.vue'], resolve)
+            }
+          ]
+        },
+        {
+          path: "admin",
+          component: resolve =>
+            require(["@/components/Admin.vue"], resolve)
+        },
+        {
+          path: '/StuDetails',
+          name: 'StuDetails',
+          component: resolve => require(["@/components/User/UserDetails.vue"], resolve)
+        }
+      ]
     },
-
     {
       path: '/404',
-      name: '404',
-      // component:()=>import('@/components/notFound404.vue')
       component: resolve => require(['@/components/notFound404.vue'], resolve)
     },
     {
@@ -37,5 +65,5 @@ var router = new Router({
       redirect: '/404'
     }
   ]
-})
-export default router
+});
+export default router;

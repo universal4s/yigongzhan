@@ -1,27 +1,19 @@
 <template>
-  <div>
+  <div class="col-md-offset-3">
     <b-container fluid>
-      <transition enter-active-class="animated fadeIn" class="trans">
-        <router-view></router-view>
-      </transition>
+      <router-view></router-view>
     </b-container>
+    <!-- <transition enter-active-class="animated fadeIn" class="trans"></transition> -->
   </div>
 </template>
 <script>
-import LeftNav from "./leftNav.vue";
-import UserDetails from "./User/UserDetails.vue";
-import NewLeft from "./NewLeft.vue";
 export default {
   data() {
     return {
       Data: {}
     };
   },
-  components: {
-    LeftNav,
-    UserDetails,
-    NewLeft
-  },
+  components: {},
   methods: {
     test() {
       this.$axios
