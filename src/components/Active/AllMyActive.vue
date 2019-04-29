@@ -30,13 +30,7 @@
       <b-button variant="primary" class="left" @click="getPersonalActive">查找</b-button>
       <b-button variant="primary" @click="reset()" class="left">重置</b-button>
     </b-form>
-    <el-table
-      :data="list.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-      border
-      style="width: 100%"
-      v-loading="isLoading"
-      :default-sort="{prop: 'startTime', order: 'descending'}"
-      :row-class-name="RowClass"
+    <el-table :data="getdata()" v-loading="isLoading" :default-sort="{prop: 'startTime', order: 'descending'}" :row-class-name="RowClass"
     >
       <el-table-column fixed prop="name" label="活动名称" align="center" width="100"></el-table-column>
       <el-table-column fixed prop="workHour" label="工时" align="center" width="80"></el-table-column>
@@ -85,7 +79,23 @@ export default {
     return {
       fields: ["index", "age", "first_name", "last_name", "actions"],
 
-      list: this.$store.state.AllMyActiveList,
+      list: [
+        // {
+        //   attendNum: 1,
+        //   id: 19,
+        //   name: "测试2",
+        //   needNum: 12,
+        //   publishTime: "2019-04-20 16:03:06",
+        //   publisherId: 162210702234,
+        //   startTime: "2019-04-30 00:00:00",
+        //   status: 0,
+        //   workAddr: "图书馆二楼",
+        //   workCampus: "西校区",
+        //   workDepartment: "图书馆",
+        //   workHour: 0.5,
+        //   workTip: "附加"
+        // }
+      ],
       fields: [
         {
           key: "name",
@@ -124,7 +134,7 @@ export default {
           label: "活动要求"
         }
       ],
-      isLoading: true,
+      isLoading: false,
       currentPage: 1,
       pagesize: 10,
       depart_list: [],
@@ -152,9 +162,7 @@ export default {
         })
         .then(res => {
           if (res.data.code == 200) {
-            _this.list = _this.$store.state.AllMyActiveList = res.data.data.ison.concat(
-              res.data.data.overtime
-            );
+            this.list = res.data.data.ison.concat(res.data.data.overtime);
             _this.isLoading = false;
           }
         })
@@ -216,12 +224,9 @@ export default {
       this.depart_selected = null;
       this.getPersonalActive();
     },
-    RowClass({ row, index }) {
-      if (row.status === 0) {
-        return "colora";
-      } else {
-        return "colorb";
-      }
+    RowClass(row) {
+      if (row.row.status == 0) return "colorc";
+      return "colord";
     },
     getSta(x) {
       if (x.row.status == 0) {
@@ -230,12 +235,19 @@ export default {
         return "已取消";
       }
       return "异常";
+    },
+    getdata() {
+      var list = this.list.slice(
+        (this.currentPage - 1) * this.pagesize,
+        this.currentPage * this.pagesize
+      );
+      return list;
     }
   },
   created() {
-    this.getPersonalActive();
     this.getAlldepart();
     this.getCampus();
+    this.getPersonalActive();
   },
   components: {
     MyActiveDetails
@@ -247,10 +259,10 @@ export default {
   /* margin: 10px; */
   margin-left: 10px;
 }
-.el-table .colora {
+.el-table .colorc {
   background: #b9fabf;
 }
-.el-table .colorb {
+.el-table .colord {
   background: rgb(255, 244, 146);
 }
 </style>

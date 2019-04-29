@@ -4,12 +4,6 @@
       <b-nav vertical>
         <b-nav-item active :to="{path:'/main/active/all-active'}">义工管理</b-nav-item>
         <b-nav-item :to="{path:'/main/active/add-active'}">活动管理员</b-nav-item>
-
-        <!-- <b-nav-item> -->
-        <!-- <router-link :to="{path:'/login'}">其他1</router-link> -->
-        <!-- </b-nav-item> -->
-        <!-- <b-nav-item>其他2</b-nav-item> -->
-        <!-- <b-nav-item>其他3</b-nav-item> -->
       </b-nav>
     </div>
     <div class="content container">

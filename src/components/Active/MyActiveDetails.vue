@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       stulist: [],
-      work_info: [],
+      work_info: {},
       isLoading: true,
       currentPage: 1,
       pagesize: 10,
@@ -110,19 +110,37 @@ export default {
     },
     getWorkDetails() {
       var _this = this;
-      this.$store.state.AllMyActiveList.forEach(ele => {
-        if (ele.id == this.$route.params.id) {
-          _this.work_info = ele;
-          // console.log(_this.work_info);
-          _this.isCorrect(_this.work_info.startTime);
+      this.$route.params.id;
+      _this.$axios
+        .get("/volunteer/teacher/getallworkbyteacherid", {
+          params: {
+            publisherid: this.$store.state.UserData.Uid,
+            workid: this.$route.params.id
+          }
+        })
+        .then(res => {
+          _this.work_info = res.data.data.ison.concat(
+            res.data.data.overtime
+          )[0];
           _this.work_info.startTime = new Date(_this.work_info.startTime);
-          //   console.log(ele);
-          _this.status = !(new Date(ele.startTime) > new Date());
-          console.log(_this.status);
+          _this.status = !(new Date(_this.work_info.startTime) > new Date());
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // this.$store.state.AllMyActiveList.forEach(ele => {
+      //   if (ele.id == this.$route.params.id) {
+      //     _this.work_info = ele;
+      //     // console.log(_this.work_info);
+      //     _this.isCorrect(_this.work_info.startTime);
+      //     _this.work_info.startTime = new Date(_this.work_info.startTime);
+      //     //   console.log(ele);
+      //     _this.status = !(new Date(ele.startTime) > new Date());
+      //     console.log(_this.status);
 
-          return;
-        }
-      });
+      //     return;
+      //   }
+      // });
     },
     handleSizeChange: function(size) {
       this.pagesize = size;
