@@ -20,8 +20,8 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item :to="{path:'/main/active'}">活动管理</b-nav-item>
-            <b-nav-item :to="{path:'/main/admin'}">后台管理</b-nav-item>
+            <b-nav-item :to="{path:'/main/active'}" v-if="this.$store.state.UserData.role=='admin'">活动管理</b-nav-item>
+            <b-nav-item :to="{path:'/main/admin'}" v-if="this.$store.state.UserData.role=='admin'">后台管理</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->

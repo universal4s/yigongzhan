@@ -51,8 +51,8 @@ export default {
   data() {
     return {
       UserInfo: {
-        username: "162210702234",
-        password: "bigsai"
+        username: "13338818769",
+        password: "jjjkkklll"
       }
     };
   },
@@ -65,13 +65,17 @@ export default {
       _this.$axios
         .post("/volunteer/login", login_form)
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data.code == 200) {
+            // console.log(res.data);
+
             document.cookie = "";
             document.cookie = "JSESSIONID=" + res.data.data.JSESSIONID;
             localStorage.setItem("role", res.data.data.role);
-            _this.get_dynamic_route(localStorage.getItem("role"));
-            _this.$router.replace({ path: "/main" });
+            _this.$store.state.UserData.role = res.data.data.role;
+            _this.get_dynamic_route(localStorage.getItem("role")).then(() => {
+              _this.$router.replace({ path: "/main" });
+            });
           }
         })
         .catch(err => {
@@ -79,15 +83,14 @@ export default {
         });
     },
     get_dynamic_route(user_type) {
+      // console.log(user_type);
+
       var router_list = null;
-      if (user_type == "student") {
+      if (user_type == "publisher") {
+        // alert(1);
         router_list = [
           {
-            path: "/",
-            redirect: "/index"
-          },
-          {
-            path: "/index",
+            path: "/main",
             component: resolve => require(["@/components/index.vue"], resolve),
             children: [
               {
@@ -97,19 +100,140 @@ export default {
               {
                 path: "active",
                 component: resolve =>
-                  require(["@/components/publisher/index.vue"], resolve)
-              },
-              {
-                path: "all",
-                component: resolve =>
-                  require(["@/components/adminComponent/Admin.vue"], resolve)
+                  require(["@/components/publisher/index.vue"], resolve),
+                children: [
+                  {
+                    path: "/",
+                    redirect: "all-active"
+                  },
+                  {
+                    path: "all-active",
+                    component: resolve =>
+                      require(["@/components/Active/AllMyActive.vue"], resolve)
+                  },
+                  {
+                    path: "add-active",
+                    component: resolve =>
+                      require(["@/components/Active/createActive.vue"], resolve)
+                  },
+                  {
+                    path: "details",
+                    name: "active-details",
+                    component: resolve =>
+                      require([
+                        "@/components/Active/MyActiveDetails.vue"
+                      ], resolve)
+                  }
+                ]
               }
             ]
           }
         ];
       } else if (user_type == "admin") {
+        // alert();
+        router_list = [
+          {
+            path: "/main",
+            component: resolve => require(["@/components/index.vue"], resolve),
+            children: [
+              {
+                path: "/",
+                redirect: "active"
+              },
+              {
+                path: "active",
+                component: resolve =>
+                  require(["@/components/publisher/index.vue"], resolve),
+                children: [
+                  {
+                    path: "/",
+                    redirect: "all-active"
+                  },
+                  {
+                    path: "all-active",
+                    component: resolve =>
+                      require(["@/components/Active/AllMyActive.vue"], resolve)
+                  },
+                  {
+                    path: "add-active",
+                    component: resolve =>
+                      require(["@/components/Active/createActive.vue"], resolve)
+                  },
+                  {
+                    path: "details",
+                    name: "active-details",
+                    component: resolve =>
+                      require([
+                        "@/components/Active/MyActiveDetails.vue"
+                      ], resolve)
+                  }
+                ]
+              },
+              {
+                path: "admin",
+                component: resolve =>
+                  require(["@/components/adminComponent/Admin.vue"], resolve),
+                children: [
+                  {
+                    path: "/",
+                    redirect: "volun"
+                  },
+                  {
+                    path: "volun",
+                    name: "volunadmin",
+                    component: resolve =>
+                      require([
+                        "@/components/adminComponent/volunAdmin.vue"
+                      ], resolve)
+                  },
+                  {
+                    path: "public",
+                    name: "pubadmin",
+                    component: resolve =>
+                      require([
+                        "@/components/adminComponent/pubAdmin.vue"
+                      ], resolve)
+                  },
+                  {
+                    path: "add-volun",
+                    name: "add-volun",
+                    component: resolve =>
+                      require([
+                        "@/components/adminComponent/addVolun.vue"
+                      ], resolve)
+                  },
+                  {
+                    path: "add-public",
+                    name: "add-public",
+                    component: resolve =>
+                      require([
+                        "@/components/adminComponent/addPub.vue"
+                      ], resolve)
+                  },
+                  {
+                    path: "StuDetails",
+                    name: "StuDetails",
+                    component: resolve =>
+                      require(["@/components/User/UserDetails.vue"], resolve)
+                  },
+                  {
+                    path: "PubDetails",
+                    name: "PubDetails",
+                    component: resolve =>
+                      require(["@/components/User/publisherDetails"], resolve)
+                  }
+                ]
+              }
+            ]
+          }
+        ];
       }
-      // this.$router.addRoutes(router_list);
+
+      const pro = new Promise((resolve, reject) => {
+        this.$router.addRoutes(router_list);
+        resolve(true);
+      });
+      return pro;
     },
     getCookie(name) {
       var arr,
