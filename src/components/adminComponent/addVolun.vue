@@ -66,13 +66,13 @@ export default {
   data() {
     return {
       form: {
-        password: "22222222",
+        password: "",
         name: "aaaa",
-        studentid: "123123123123",
+        studentid: "",
         sex: "男",
-        major: "计算机科学与技术",
-        inyear: "2016",
-        phone: "12312312312"
+        major: "",
+        inyear: "",
+        phone: ""
       },
       genderOption: [
         {
