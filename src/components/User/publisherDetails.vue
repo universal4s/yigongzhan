@@ -44,18 +44,7 @@ export default {
                     return;
                 }
             });
-            // this.$axios
-            //     .get("/volunteer/public/getstudentinformation", {
-            //         params: {
-            //             studentid: _this.$route.params.id
-            //         }
-            //     })
-            //     .then(res => {
-            //         if (res.data.code == 200) {
-            //             _this.info_list = res.data.data[0];
-            //         }
-            //     })
-            //     .catch(err => {});
+
         },
         modify() {
             var _this = this;

@@ -1,11 +1,5 @@
 <template>
-  <div>
-    <!-- <b-table striped hover :items="list" :fields="fields">
-      <template slot="index" slot-scope="data">{{ data.index+1 }}</template>
-      <template slot="actions">
-        <b-button size="sm">Info modal</b-button>
-      </template>
-    </b-table>-->
+  <div class="ce-wrapper">
     <b-form inline>
       <!-- <label class="sr-only" for="inline-form-input-name">Name</label>
       <b-input id="inline-form-input-name" class="mb-2 mr-sm-2 mb-sm-0" placeholder="Jane Doe"></b-input>
@@ -30,29 +24,30 @@
       <b-button variant="primary" class="left" @click="getPersonalActive">查找</b-button>
       <b-button variant="primary" @click="reset()" class="left">重置</b-button>
     </b-form>
-    <el-table :data="getdata()" v-loading="isLoading" :default-sort="{prop: 'startTime', order: 'descending'}" :row-class-name="RowClass"
+    <el-table
+      :data="getdata()"
+      v-loading="isLoading"
+      :default-sort="{prop: 'startTime', order: 'descending'}"
+      :row-class-name="RowClass"
     >
       <el-table-column fixed prop="name" label="活动名称" align="center" width="100"></el-table-column>
       <el-table-column fixed prop="workHour" label="工时" align="center" width="80"></el-table-column>
       <el-table-column fixed prop="attendNum" label="已签" align="center" width="80"></el-table-column>
       <el-table-column fixed prop="needNum" label="需要" align="center" width="80"></el-table-column>
-
       <el-table-column fixed prop="workAddr" label="地点" align="center"></el-table-column>
       <el-table-column fixed prop="workCampus" label="校区" align="center"></el-table-column>
       <el-table-column fixed prop="workDepartment" label="部门" align="center"></el-table-column>
-
-      <!-- <el-table-column fixed prop="publishTime" label="发布时间" sortable align="center"></el-table-column> -->
       <el-table-column fixed prop="startTime" label="活动时间" sortable align="center"></el-table-column>
-      <el-table-column fixed label="操作">
+      <el-table-column fixed label="状态" width="100">
+        <template slot-scope="scope">
+          <div>{{ getSta(scope) }}</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <div>
             <router-link :to="{name:'active-details',params:{id:scope.row.id}}">详情</router-link>
           </div>
-        </template>
-      </el-table-column>
-      <el-table-column fixed label="状态" width="100">
-        <template slot-scope="scope">
-          <div>{{ getSta(scope) }}</div>
         </template>
       </el-table-column>
     </el-table>
@@ -69,7 +64,6 @@
         background
       ></el-pagination>
     </div>
-    <!-- <b-table striped hover :items="list" :fields="fields"></b-table> -->
   </div>
 </template>
 <script>
@@ -145,6 +139,7 @@ export default {
   },
   methods: {
     getPersonalActive() {
+      this.isLoading = true;
       var _this = this;
       let data = {};
       data.publisherid = _this.$store.state.UserData.Uid;
@@ -163,6 +158,8 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             this.list = res.data.data.ison.concat(res.data.data.overtime);
+            _this.isLoading = false;
+          } else {
             _this.isLoading = false;
           }
         })
@@ -225,7 +222,9 @@ export default {
       this.getPersonalActive();
     },
     RowClass(row) {
-      if (row.row.status == 0) return "colorc";
+      if (row.row.status == 0) {
+        return "colorc";
+      }
       return "colord";
     },
     getSta(x) {
@@ -264,5 +263,9 @@ export default {
 }
 .el-table .colord {
   background: rgb(255, 244, 146);
+}
+.block {
+  display: flex;
+  justify-content: center;
 }
 </style>

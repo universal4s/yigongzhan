@@ -102,7 +102,7 @@ export default {
               {
                 path: "all",
                 component: resolve =>
-                  require(["@/components/Admin.vue"], resolve)
+                  require(["@/components/adminComponent/Admin.vue"], resolve)
               }
             ]
           }

@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div style="padding-bottom:100px;">
+
+    <router-view ></router-view>
+    </div>
     <footer-page></footer-page>
   </div>
 </template>
 
 <script>
-import Index from "./components/index.vue";
-import FooterPage from "./components/footer";
-
 export default {
   name: "App",
   components: {
-    Index,
-    FooterPage
+    FooterPage: resolve => require(["@/components/footer.vue"], resolve)
   }
 };
 </script>
@@ -23,10 +22,11 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-html {
+
+html body {
   height: 100%;
-}
-body {
+  margin: 0;
+  padding: 0;
   background-color: #fff;
   min-height: 100vh;
 

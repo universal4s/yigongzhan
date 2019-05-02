@@ -10,16 +10,12 @@
 </template>
    
 <script>
-import NavBar from "./nav.vue";
-// import MainPage from "./main.vue";
-
 export default {
   data() {
     return {};
   },
   components: {
-    NavBar
-    // MainPage,
+    NavBar: resolve => require(["@/components/nav.vue"], resolve)
   }
 };
 </script>
