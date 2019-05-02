@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-upload
+    <div style="height:80px">
+      <el-upload
       class="upload-demo"
       ref="upload"
       action="http://www.biggsai.com/upload"
@@ -16,6 +17,7 @@
 
       <!-- <el-button slot="trigger" size="small" type="primary">导入excel</el-button> -->
     </el-upload>
+    </div>
     <b-button v-b-modal.modal-1 @click="preview_file">预览</b-button>
     <b-button variant="outline-success" slot="trigger" @click="submit">上传</b-button>
     <b-alert :show="isshow">功能测试中，暂不可使用</b-alert>
