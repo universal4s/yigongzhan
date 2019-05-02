@@ -163,8 +163,8 @@ export default {
       fd.append("start_time", this.form.start_time);
       fd.append("neednumber", this.form.neednumber);
       fd.append("tip", this.form.tip);
-      fd.append("campus", this.campus_list[this.form.campus - 1].text);
-      fd.append("department", this.campus_list[this.form.campus - 1].text);
+      fd.append("campus", this.campus_list[this.form.campus - 1].label);
+      fd.append("department", this.campus_list[this.form.campus - 1].label);
       this.$axios
         .post("/volunteer/teacher/createactivity", fd)
         .then(res => {

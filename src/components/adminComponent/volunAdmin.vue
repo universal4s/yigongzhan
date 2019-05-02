@@ -15,6 +15,7 @@
         <el-table-column prop="college" label="学院" align="center"></el-table-column>
         <el-table-column prop="major" label="专业" align="center"></el-table-column>
         <el-table-column prop="inYear" label="入学年份" align="center"></el-table-column>
+        <!-- <el-table-column prop="gs"></el-table-column> -->
         <el-table-column width="80" :show-header="false">
           <template slot-scope="scope">
             <div>

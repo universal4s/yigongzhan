@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <div style="height:80px">
       <el-upload
       class="upload-demo"
