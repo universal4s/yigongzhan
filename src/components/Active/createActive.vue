@@ -164,7 +164,7 @@ export default {
       fd.append("neednumber", this.form.neednumber);
       fd.append("tip", this.form.tip);
       fd.append("campus", this.campus_list[this.form.campus - 1].label);
-      fd.append("department", this.campus_list[this.form.campus - 1].label);
+      fd.append("department", this.depart_list[this.form.department - 1].label);
       this.$axios
         .post("/volunteer/teacher/createactivity", fd)
         .then(res => {
