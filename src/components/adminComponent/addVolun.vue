@@ -67,7 +67,7 @@ export default {
     return {
       form: {
         password: "",
-        name: "aaaa",
+        name: "",
         studentid: "",
         sex: "男",
         major: "",
