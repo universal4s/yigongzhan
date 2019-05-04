@@ -1,27 +1,28 @@
 <template>
-  <div >
+  <div>
     <div style="height:80px">
       <el-upload
-      class="upload-demo"
-      ref="upload"
-      action="http://www.biggsai.com/upload"
-      :file-list="fileList"
-      :auto-upload="false"
-      :before-upload="beforeFileUpload"
-      :before-remove="beforeFileRemove"
-      :on-change="onChange"
-      :limit="1"
-      :on-success="success"
-    >
-      <b-button variant="outline-success" slot="trigger">导入excel</b-button>
+        class="upload-demo"
+        ref="upload"
+        :action="act"
+        :file-list="fileList"
+        :auto-upload="false"
+        :before-upload="beforeFileUpload"
+        :before-remove="beforeFileRemove"
+        :on-change="onChange"
+        :limit="1"
+        :with-credentials="true"
+        :on-success="success"
+      >
+        <b-button variant="outline-success" slot="trigger">导入excel</b-button>
 
-      <!-- <el-button slot="trigger" size="small" type="primary">导入excel</el-button> -->
-    </el-upload>
+        <!-- <el-button slot="trigger" size="small" type="primary">导入excel</el-button> -->
+      </el-upload>
     </div>
     <b-button v-b-modal.modal-1 @click="preview_file">预览</b-button>
     <b-button variant="outline-success" slot="trigger" @click="submit">上传</b-button>
     <b-alert :show="isshow">功能测试中，暂不可使用</b-alert>
-    <b-modal id="modal-1" size="xl" title="数据预览" no-close-on-backdrop="true">
+    <b-modal id="modal-1" size="xl" title="数据预览" :no-close-on-backdrop="isshow">
       <!-- <p class="my-4">Hello from modal!</p> -->
       <b-table striped hover :items="items"></b-table>
     </b-modal>
@@ -34,22 +35,23 @@ export default {
     return {
       fileList: [],
       items: [],
-      isshow:false
+      isshow: false,
+      act: ""
     };
   },
   methods: {
     beforeFileUpload(file) {
-      let fd = new FormData();
-      fd.append("volunteer_file", file);
-      fd.append("user_id", "T1001503");
-      this.$axios
-        .post("/api/v1.1/uploadVolunteerFile", fd, this.headers)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      // let fd = new FormData();
+      // fd.append("volunteer_file", file);
+      // fd.append("user_id", "T1001503");
+      // this.$axios
+      //   .post("/api/v1.1/uploadVolunteerFile", fd, this.headers)
+      //   .then(res => {
+      //     console.log(res);
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
       return true;
     },
     beforeFileRemove(file, fileList) {
@@ -68,7 +70,7 @@ export default {
       }
       this.file2Xce(file).then(tabJson => {
         if (tabJson && tabJson.length > 0) {
-          this.items = tabJson[0].sheet.concat(tabJson[0].sheet);
+          this.items = tabJson[0].sheet;
           console.log("数据", this.items);
         }
       });
@@ -106,8 +108,24 @@ export default {
       return isLimit;
     },
     submit() {
-      this.isshow=true;
-      // this.$refs.upload.submit();
+      // this.isshow=true;
+      if (this.$route.params.type == "pub") {
+        let fd = new FormData();
+        fd.append("publist", JSON.stringify(this.items));
+        console.log(JSON.stringify(this.items));
+
+        this.$axios
+          .post("/volunteer/admin/addpublisher", fd)
+          .then(res => {
+            console.log(res.data);
+            //
+          })
+          .catch(err => {
+            console.log(er);
+          });
+      } else {
+        this.$refs.upload.submit();
+      }
       // let fd=new FormData()
       // fd.append("user_id","T1001503");
       // fd.append("volunteer_file",this.$refs.upload.)
@@ -129,6 +147,14 @@ export default {
       return {
         "Content-Type": "multipart/form-data"
       };
+    }
+  },
+  created() {
+    // alert(this.$route.params.type);
+    if (this.$route.params.type == "pub") {
+      this.act = "http://www.biggsai.com/volunteer/admin/addpublisher";
+    } else {
+      this.act = "http://www.biggsai.com/volunteer/admin/addstudentuser";
     }
   }
 };

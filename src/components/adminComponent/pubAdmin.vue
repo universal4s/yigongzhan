@@ -12,7 +12,11 @@
       <el-table-column width="80" :show-header="false">
         <template slot-scope="scope">
           <div>
-            <el-button type="primary" @click="edit_volun(scope.row.publisherId)" icon="el-icon-edit"></el-button>
+            <el-button
+              type="primary"
+              @click="edit_volun(scope.row.publisherId)"
+              icon="el-icon-edit"
+            ></el-button>
             <!-- <router-link :to="{name:'StuDetails',params:{id:scope.row.studentId}}" tag="span">编辑</router-link> -->
           </div>
         </template>
@@ -132,7 +136,9 @@ export default {
         });
     },
     add() {
-      this.$router.push({ name: "add-public" });
+      this.$router.push({ name: "add-public",params:{
+        type:"pub"
+      } });
     },
     edit_volun(id) {
       this.$router.push({

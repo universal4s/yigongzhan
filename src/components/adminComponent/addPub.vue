@@ -113,11 +113,23 @@ export default {
     },
     sendForm() {
       let fd = new FormData();
-      fd.append("publisherid", this.form.publisherid);
-      fd.append("password", this.form.password);
-      fd.append("name", this.form.name);
-      fd.append("phone", this.form.phone);
-      fd.append("location", this.form.location);
+      // fd.append("publisherid", this.form.publisherid);
+      // fd.append("password", this.form.password);
+      // fd.append("name", this.form.name);
+      // fd.append("phone", this.form.phone);
+      // fd.append("location", this.form.location);
+      let publist = [];
+      let obj = this.form;
+      
+      publist.push(obj);
+      publist.push({
+        publisherid:"12332145612",
+        password:"123123",
+        name:"1231231",
+        phone:"12312312312",
+        location:"东校区"
+      })
+      fd.append("publist", JSON.stringify(publist));
       this.$axios
         .post("/volunteer/admin/addpublisher", fd)
         .then(res => {
@@ -158,7 +170,7 @@ export default {
 .wrapper {
   display: flex;
 }
-.upload{
-    flex:6;
+.upload {
+  flex: 6;
 }
 </style>

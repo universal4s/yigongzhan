@@ -31,3 +31,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 #安装淘宝cnpm
 npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+
+#test
+[{"publisherid":1234567891,"password":123456,"name":"test","phone":1234567891,"location":"东校区"},{"publisherid":1234567892,"password":123457,"name":"test","phone":1234567892,"location":"东校区"},{"publisherid":1234567893,"password":123458,"name":"test","phone":1234567893,"location":"东校区"},{"publisherid":1234567894,"password":123459,"name":"test","phone":1234567894,"location":"东校区"}]

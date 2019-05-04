@@ -8,13 +8,15 @@
         v-loading="isLoading"
       >
         <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-        <el-table-column prop="studentId" label="学号" align="center"></el-table-column>
+        <el-table-column prop="student_id" label="学号" align="center"></el-table-column>
         <el-table-column prop="sex" label="性别" align="center"></el-table-column>
         <!-- <el-table-column prop="volunteer_age" label="年龄" align="center"></el-table-column> -->
         <el-table-column prop="phone" label="电话" align="center"></el-table-column>
         <el-table-column prop="college" label="学院" align="center"></el-table-column>
         <el-table-column prop="major" label="专业" align="center"></el-table-column>
-        <el-table-column prop="inYear" label="入学年份" align="center"></el-table-column>
+        <el-table-column prop="worktime" label="总工时" align="center"></el-table-column>
+
+        <el-table-column prop="in_year" label="入学年份" align="center"></el-table-column>
         <!-- <el-table-column prop="gs"></el-table-column> -->
         <el-table-column width="80" :show-header="false">
           <template slot-scope="scope">
